@@ -15,7 +15,7 @@ public class EditCommand extends Command {
             + "Example 2: " + COMMAND_WORD + " 1 " + "phone " + "91234567";
 
     public static final String MESSAGE_EDIT_FIELD_INVALID = "Field is invalid. Accepted fields are name, phone, " +
-                                                            "and address.";
+                                                            "email and address.";
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edit successful. Person details: %1$s";
 
     public final String field;
