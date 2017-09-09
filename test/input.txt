@@ -13,6 +13,7 @@
   delete 1
   view 1
   viewall 1
+  edit 1 name Bread Doe
 
 ##########################################################
 # clean and check state
@@ -105,6 +106,36 @@
   find Dickson
   # find multiple with some keywords
   find Charlie Betsy
+
+##########################################################
+# test edit person command
+##########################################################
+
+# last active view: [1] betsy [2] charlie
+
+  # should catch invalid args format
+  edit
+  edit should be one number followed by 2 strings
+
+  # should catch invalid index
+  edit -1 name Betta
+  edit 0 phone 99999
+  edit 3 email g@g.g
+
+  # should catch invalid field
+  edit 2 surname Lim
+  edit 1 wealth 99999
+
+  # successful edit
+  edit 1 phone 91234567
+  edit 2 email charlie@newmail.com
+
+  # should show updated list
+  list
+
+  # find multiple with some keywords
+  find Charlie Betsy
+
 
 ##########################################################
 # test delete person command

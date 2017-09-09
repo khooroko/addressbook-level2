@@ -19,6 +19,10 @@
 || Example: find alice bob charlie
 || list: Displays all persons in the address book as a list with index numbers.
 || Example: list
+|| edit: Edits information of the person identified by the index number used in the last person listing.
+|| Parameters: INDEX, FIELD, NEW INFO
+|| Example 1: edit 1 name Joseph Doe
+|| Example 2: edit 1 phone 91234567
 || view: Views the non-private details of the person identified by the index number in the last shown person listing.
 || Parameters: INDEX
 || Example: view 1
@@ -37,6 +41,9 @@
 || The person index provided is invalid
 || ===================================================
 || Enter command: || [Command entered:  viewall 1]
+|| The person index provided is invalid
+|| ===================================================
+|| Enter command: || [Command entered:  edit 1 name Bread Doe]
 || The person index provided is invalid
 || ===================================================
 || Enter command: || [Command entered:  clear]
@@ -233,6 +240,56 @@
 || 
 || 2 persons listed!
 || ===================================================
+|| Enter command: || [Command entered:  edit]
+|| Invalid command format! 
+|| edit: Edits information of the person identified by the index number used in the last person listing.
+|| Parameters: INDEX, FIELD, NEW INFO
+|| Example 1: edit 1 name Joseph Doe
+|| Example 2: edit 1 phone 91234567
+|| ===================================================
+|| Enter command: || [Command entered:  edit should be one number followed by 2 strings]
+|| Invalid command format! 
+|| edit: Edits information of the person identified by the index number used in the last person listing.
+|| Parameters: INDEX, FIELD, NEW INFO
+|| Example 1: edit 1 name Joseph Doe
+|| Example 2: edit 1 phone 91234567
+|| ===================================================
+|| Enter command: || [Command entered:  edit -1 name Betta]
+|| The person index provided is invalid
+|| ===================================================
+|| Enter command: || [Command entered:  edit 0 phone 99999]
+|| The person index provided is invalid
+|| ===================================================
+|| Enter command: || [Command entered:  edit 3 email g@g.g]
+|| The person index provided is invalid
+|| ===================================================
+|| Enter command: || [Command entered:  edit 2 surname Lim]
+|| Field is invalid. Accepted fields are name, phone, email and address.
+|| ===================================================
+|| Enter command: || [Command entered:  edit 1 wealth 99999]
+|| Field is invalid. Accepted fields are name, phone, email and address.
+|| ===================================================
+|| Enter command: || [Command entered:  edit 1 phone 91234567]
+|| Edit successful. Person details: Betsy Choo Phone: (private) 91234567 Email: (private) benchoo@nus.edu.sg Address: (private) 222, beta street Tags: [secretive]
+|| ===================================================
+|| Enter command: || [Command entered:  edit 2 email charlie@newmail.com]
+|| Edit successful. Person details: Charlie Dickson Phone: (private) 333333 Email: charlie@newmail.com Address: 333, gamma street Tags: [school][friends]
+|| ===================================================
+|| Enter command: || [Command entered:  list]
+|| 	1. Adam Brown Phone: 111111 Email: adam@gmail.com Address: 111, alpha street Tags: 
+|| 	2. Betsy Choo Tags: [secretive]
+|| 	3. Charlie Dickson Email: charlie@newmail.com Address: 333, gamma street Tags: [school][friends]
+|| 	4. Dickson Ee Phone: 444444 Address: 444, delta street Tags: [friends]
+|| 	5. Esther Potato Phone: 555555 Email: esther@not.a.real.potato Tags: [tubers][starchy]
+|| 
+|| 5 persons listed!
+|| ===================================================
+|| Enter command: || [Command entered:  find Charlie Betsy]
+|| 	1. Betsy Choo Tags: [secretive]
+|| 	2. Charlie Dickson Email: charlie@newmail.com Address: 333, gamma street Tags: [school][friends]
+|| 
+|| 2 persons listed!
+|| ===================================================
 || Enter command: || [Command entered:  delete]
 || Invalid command format! 
 || delete: Deletes the person identified by the index number used in the last person listing.
@@ -252,7 +309,7 @@
 || The person index provided is invalid
 || ===================================================
 || Enter command: || [Command entered:  delete 2]
-|| Deleted Person: Charlie Dickson Phone: (private) 333333 Email: charlie.d@nus.edu.sg Address: 333, gamma street Tags: [school][friends]
+|| Deleted Person: Charlie Dickson Phone: (private) 333333 Email: charlie@newmail.com Address: 333, gamma street Tags: [school][friends]
 || ===================================================
 || Enter command: || [Command entered:  delete 2]
 || Person could not be found in address book
