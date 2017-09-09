@@ -11,17 +11,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.addressbook.commands.AddCommand;
-import seedu.addressbook.commands.ClearCommand;
-import seedu.addressbook.commands.Command;
-import seedu.addressbook.commands.DeleteCommand;
-import seedu.addressbook.commands.ExitCommand;
-import seedu.addressbook.commands.FindCommand;
-import seedu.addressbook.commands.HelpCommand;
-import seedu.addressbook.commands.IncorrectCommand;
-import seedu.addressbook.commands.ListCommand;
-import seedu.addressbook.commands.ViewAllCommand;
-import seedu.addressbook.commands.ViewCommand;
+import seedu.addressbook.commands.*;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
@@ -56,6 +46,11 @@ public class Parser {
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    /**
+     * Used for separation of args for edit command.
+     */
+    public static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<index>\\S+) (?<field>\\S+) (?<newInfo>.*)");
+
     public Parser() {}
 
     /**
@@ -89,6 +84,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case ViewCommand.COMMAND_WORD:
             return prepareView(arguments);
@@ -250,5 +248,20 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-
+    /**
+     * Parses arguments in the context of the edit person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher((args.trim()));
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
+        return new EditCommand(Integer.valueOf(matcher.group("index")),
+                                matcher.group("field"),
+                                matcher.group("newInfo"));
+    }
 }

@@ -1,5 +1,6 @@
 package seedu.addressbook.data.person;
 
+import seedu.addressbook.data.exception.IllegalValueException;
 import seedu.addressbook.data.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -16,6 +17,12 @@ public class Person implements ReadOnlyPerson {
     private Address address;
 
     private final UniqueTagList tags;
+    
+    public static final String MESSAGE_INVALID_NAME = "Invalid name.";
+    public static final String MESSAGE_INVALID_PHONE = "Invalid phone.";
+    public static final String MESSAGE_INVALID_EMAIL = "Invalid email.";
+    public static final String MESSAGE_INVALID_ADDRESS = "Invalid address.";
+    
     /**
      * Assumption: Every field must be present and not null.
      */
@@ -57,6 +64,38 @@ public class Person implements ReadOnlyPerson {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+
+    public void setName(String name) throws IllegalValueException {
+        try {
+            this.name = new Name(name) ;
+        } catch (IllegalValueException ive) {
+            throw new IllegalValueException(MESSAGE_INVALID_NAME);
+        }
+    }
+
+    public void setPhone(String phone) throws IllegalValueException {
+        try {
+            this.phone = new Phone(phone,this.phone.isPrivate()) ;
+        } catch (IllegalValueException ive) {
+            throw new IllegalValueException(MESSAGE_INVALID_PHONE);
+        }
+    }
+
+    public void setEmail(String email) throws IllegalValueException {
+        try {
+            this.email = new Email(email,this.email.isPrivate()) ;
+        } catch (IllegalValueException ive) {
+            throw new IllegalValueException(MESSAGE_INVALID_EMAIL);
+        }
+    }
+    
+    public void setAddress(String address) throws IllegalValueException {
+        try {
+            this.address = new Address(address,this.address.isPrivate()) ;
+        } catch (IllegalValueException ive) {
+            throw new IllegalValueException(MESSAGE_INVALID_ADDRESS);
+        }
     }
 
     /**
