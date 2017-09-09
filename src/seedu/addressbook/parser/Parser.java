@@ -3,11 +3,7 @@ package seedu.addressbook.parser;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.addressbook.common.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -260,8 +256,13 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCommand.MESSAGE_USAGE));
         }
-        return new EditCommand(Integer.valueOf(matcher.group("index")),
-                                matcher.group("field"),
-                                matcher.group("newInfo"));
+        try {
+            return new EditCommand(Integer.valueOf(matcher.group("index")),
+                    matcher.group("field"),
+                    matcher.group("newInfo"));
+        } catch (NumberFormatException nfe){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
     }
 }
