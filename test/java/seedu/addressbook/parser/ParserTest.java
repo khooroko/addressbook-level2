@@ -17,6 +17,7 @@ import seedu.addressbook.commands.ClearCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.DeleteCommand;
 import seedu.addressbook.commands.ExitCommand;
+import seedu.addressbook.commands.EditCommand;
 import seedu.addressbook.commands.FindCommand;
 import seedu.addressbook.commands.HelpCommand;
 import seedu.addressbook.commands.IncorrectCommand;
@@ -220,7 +221,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_addCommandInvalidPersonDataInArgs_errorMessge() {
+    public void parse_addCommandInvalidPersonDataInArgs_errorMessage() {
         final String invalidName = "[]\\[;]";
         final String validName = Name.EXAMPLE;
         final String invalidPhoneArg = "p/not__numbers";
@@ -293,6 +294,40 @@ public class ParserTest {
             addCommand += " t/" + tag.tagName;
         }
         return addCommand;
+    }
+
+    /*
+     * Tests for edit person command ======================================================================
+     */
+
+    @Test
+    public void parse_editCommandInvalidIndex_errorMessage() {
+        final String[] inputs = {
+                "edit",
+                "edit ",
+                "edit wrong args format"
+                // invalid name
+                //String.format("edit 1 name $s", Phone.EXAMPLE),
+                // invalid number
+                //String.format("edit 1 phone $s", Name.EXAMPLE),
+                // invalid email
+                //String.format("edit 1 email $s", Phone.EXAMPLE),
+                // invalid address
+                //String.format("edit 1 address $s", Phone.EXAMPLE)
+        };
+        final String resultMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
+    }
+
+    @Test
+    public void parse_editCommandInvalidField_errorMessage() {
+        final String[] inputs = {
+                "edit 1 edit x",
+                "edit 1 invalidField 99",
+                "edit 1 123 name"
+        };
+        final String resultMessage =   EditCommand.MESSAGE_EDIT_FIELD_INVALID;
+        parseAndAssertIncorrectWithMessage(resultMessage, inputs);
     }
 
     /*
